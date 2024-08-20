@@ -31,6 +31,20 @@ class Aritmatika extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            DropdownButton<String>(
+              value: selectedOperation,
+              onChanged: (String? newValue) {
+                ref.read(operationProvider.notifier).state = newValue!;
+              },
+              items: <String>['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian', 'Modulus']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 20),
             CustomInput(
               labelText: "Angka Pertama",
               borderColor: Colors.black,
@@ -47,20 +61,6 @@ class Aritmatika extends ConsumerWidget {
               inputType: TextInputType.number,
               controller: angka2Controller,
               labelColor: Colors.black,
-            ),
-            const SizedBox(height: 20),
-            DropdownButton<String>(
-              value: selectedOperation,
-              onChanged: (String? newValue) {
-                ref.read(operationProvider.notifier).state = newValue!;
-              },
-              items: <String>['Penjumlahan', 'Pengurangan', 'Perkalian', 'Pembagian', 'Modulus']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
             ),
             const SizedBox(height: 20),
             CalculateButton(
